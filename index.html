@@ -1,0 +1,666 @@
+<!doctype html>
+<html lang="ne">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/src/assets/logo.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jamin Direct | जमिन डाइरेक्ट - P2P Zero-Commission Real Estate Nepal</title>
+  </head>
+  <body>
+    <!-- App Container -->
+    <div id="app">
+      <!-- Ambient Backdrops -->
+      <div class="aurora-glow glow-1"></div>
+      <div class="aurora-glow glow-2"></div>
+
+      <!-- App Sidebar -->
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-logo">JD</div>
+          <div class="brand-details">
+            <h1 data-i18n="title">Jamin Direct</h1>
+            <p data-i18n="subtitle">P2P Real Estate Nepal</p>
+          </div>
+        </div>
+
+        <nav class="nav-menu">
+          <li class="nav-item active" data-tab="search">
+            <button><span class="accent-icon">🔍</span> <span data-i18n="navHome">Search Properties</span></button>
+          </li>
+          <li class="nav-item" data-tab="ekyc">
+            <button><span class="accent-icon">🛡️</span> <span data-i18n="navEkyc">eKYC Verification</span></button>
+          </li>
+          <li class="nav-item" data-tab="mero-kitta">
+            <button><span class="accent-icon">🗺️</span> <span data-i18n="navMeroKitta">Mero Kitta Verification</span></button>
+          </li>
+          <li class="nav-item" data-tab="list-property">
+            <button><span class="accent-icon">➕</span> <span data-i18n="navUpload">List Property</span></button>
+          </li>
+          <li class="nav-item" data-tab="pricing">
+            <button><span class="accent-icon">📊</span> <span data-i18n="navHome">Pricing Engine</span></button>
+          </li>
+          <li class="nav-item" data-tab="negotiate">
+            <button><span class="accent-icon">💬</span> <span data-i18n="navNegotiate">Secure Negotiation</span></button>
+          </li>
+          <li class="nav-item" data-tab="escrow">
+            <button><span class="accent-icon">🏦</span> <span data-i18n="navEscrow">NRB Escrow Approval</span></button>
+          </li>
+          <li class="nav-item" data-tab="legal">
+            <button><span class="accent-icon">✒️</span> <span data-i18n="navLegal">Rajinama & signatures</span></button>
+          </li>
+          <li class="nav-item" data-tab="privacy">
+            <button><span class="accent-icon">🔒</span> <span data-i18n="navPrivacy">PII Privacy Vault</span></button>
+          </li>
+        </nav>
+
+        <div class="sidebar-footer">
+          <div class="lang-switch">
+            <button class="lang-switch-btn active" data-lang="ne">नेपाली</button>
+            <button class="lang-switch-btn" data-lang="en">English</button>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Dashboard Panel -->
+      <main class="main-content">
+        
+        <!-- DASHBOARD HEADER -->
+        <header class="dashboard-header">
+          <div class="header-meta">
+            <h2 id="current-tab-title" data-i18n="navHome">Search Properties</h2>
+            <p id="current-tab-desc" data-i18n="tagline">Direct property exchange connecting buyers, sellers, and tenants without middlemen.</p>
+          </div>
+          <div class="badge-strip">
+            <div class="badge badge-emerald" id="user-kyc-badge">
+              <span>🛡️</span> <span id="user-kyc-status-text" data-i18n="unverified">Unverified</span>
+            </div>
+            <div class="badge badge-gold">
+              <span>👑</span> Zero Commission
+            </div>
+          </div>
+        </header>
+
+        <!-- =================== SEARCH TAB =================== -->
+        <section class="tab-panel active" id="tab-search">
+          <div class="listing-portal">
+            <div>
+              <div class="card" style="margin-bottom: 2rem;">
+                <div class="card-title"><span>🔎</span> Filter Verified Properties</div>
+                <div class="grid-cols-3">
+                  <div class="form-group">
+                    <label class="form-label">Location / District</label>
+                    <select class="form-control" id="search-district-filter">
+                      <option value="all">All Nepal</option>
+                      <option value="Kathmandu">Kathmandu</option>
+                      <option value="Lalitpur">Lalitpur</option>
+                      <option value="Bhaktapur">Bhaktapur</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Zoning Type</label>
+                    <select class="form-control" id="search-zoning-filter">
+                      <option value="all">All Zoning</option>
+                      <option value="residential">Residential (आवासीय)</option>
+                      <option value="commercial">Commercial (व्यापारिक)</option>
+                      <option value="agricultural">Agricultural (कृषि)</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Commission Model</label>
+                    <input class="form-control" type="text" value="0% Commission Guaranteed" disabled />
+                  </div>
+                </div>
+              </div>
+
+              <!-- Listing Cards Grid -->
+              <div class="listings-grid" id="search-listings-grid">
+                <!-- Dynamically loaded listings go here -->
+              </div>
+            </div>
+
+            <!-- Fairness Audit Log Side Panel -->
+            <div class="key-inspector" style="height: fit-content;">
+              <h3 class="card-title" style="margin-bottom: 0.75rem;"><span data-i18n="fairnessScore">Search & Algorithmic Fairness Audit Log</span></h3>
+              <p style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.4; margin-bottom: 1rem;">
+                Intermediary liability compliance checker. Ensures that Jamin Direct's search weight factors contain zero paid preferential positioning.
+              </p>
+              <div class="audit-list" id="search-audit-log-container">
+                <!-- Audit logs are loaded dynamically -->
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- =================== eKYC TAB =================== -->
+        <section class="tab-panel" id="tab-ekyc">
+          <div class="grid-cols-2">
+            <!-- Left Panel: Camera & Capture -->
+            <div class="card">
+              <h3 class="card-title"><span data-i18n="faceMatch">Live Facial Biometric Matching</span></h3>
+              <div class="scanner-box" id="ekyc-scanner-viewport" style="margin-bottom: 1.5rem;">
+                <video id="ekyc-video" autoplay playsinline></video>
+                <canvas id="ekyc-canvas" width="320" height="240"></canvas>
+              </div>
+              <div class="grid-cols-2">
+                <button class="btn btn-secondary" id="btn-start-ekyc-cam" data-i18n="startScan">Initialize Camera</button>
+                <button class="btn btn-primary" id="btn-trigger-ekyc-scan" data-i18n="matchCheck" disabled>Perform Scan</button>
+              </div>
+            </div>
+
+            <!-- Right Panel: OCR citizenship parsing -->
+            <div class="card">
+              <h3 class="card-title"><span data-i18n="nagariktaDoc">Citizenship Certificate (नागरिकता प्रमाणपत्र)</span></h3>
+              
+              <div class="form-group" style="margin-bottom: 1.5rem;">
+                <label class="form-label">Upload Nagarikta Card (Front Image)</label>
+                <div class="upload-zone" id="ekyc-upload-zone">
+                  <div class="upload-icon">📂</div>
+                  <p style="font-size: 0.9rem; font-weight: 600;">Drag & drop Nagarikta Scan here</p>
+                  <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem;">Supports JPG, PNG (Max 5MB)</p>
+                  <input type="file" id="ekyc-file-input" style="display: none;" accept="image/*" />
+                </div>
+              </div>
+
+              <!-- OCR Results console -->
+              <div class="form-group">
+                <label class="form-label" data-i18n="ocrVerify">OCR Text Extraction Engine</label>
+                <div class="ocr-report" id="ekyc-ocr-console">
+                  [OCR Core Idle: Upload Nepalese Citizenship Certificate to extract structured parameters...]
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- =================== MERO KITTA TAB =================== -->
+        <section class="tab-panel" id="tab-mero-kitta">
+          <div class="grid-cols-2">
+            <!-- Left panel: Guide & Upload -->
+            <div class="card">
+              <h3 class="card-title"><span>🗺️</span> Department of Survey - LIS Verification</h3>
+              <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 1.5rem;">
+                To secure peer-to-peer listings, all land assets must be authenticated against the government's Land Information System (LIS) registry database to verify authentic ownership.
+              </p>
+              
+              <div class="form-group">
+                <label class="form-label">Upload Lalpurja Certificate (PDF Scan)</label>
+                <div class="upload-zone" id="merokitta-lalpurja-zone">
+                  <div class="upload-icon">📄</div>
+                  <p style="font-size: 0.9rem; font-weight: 600;">Drag & drop Lalpurja PDF certificate</p>
+                  <input type="file" id="merokitta-file-input" style="display: none;" accept=".pdf,image/*" />
+                </div>
+              </div>
+
+              <!-- Portal Redirection Instructions -->
+              <div class="form-group" style="margin-top: 1.5rem;">
+                <label class="form-label">Government Portal Guide (Mero Kitta)</label>
+                <div class="ocr-report" style="border-left-color: var(--primary-gold);">
+                  <strong class="text-gold">Official Mero Kitta Registry Procedure:</strong>
+                  <ol class="guide-ol" id="merokitta-guide-steps">
+                    <!-- Loaded dynamically -->
+                  </ol>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right Panel: Land Registry Check -->
+            <div class="card">
+              <h3 class="card-title"><span>🔍</span> Official Land Registry Query Form</h3>
+              
+              <div class="grid-cols-2">
+                <div class="form-group">
+                  <label class="form-label">District (जिल्ला)</label>
+                  <select class="form-control" id="mK-district">
+                    <option value="Kathmandu">Kathmandu</option>
+                    <option value="Lalitpur">Lalitpur</option>
+                    <option value="Bhaktapur">Bhaktapur</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Municipality (नगरपालिका)</label>
+                  <select class="form-control" id="mK-municipality">
+                    <option value="Budhanilkantha">Budhanilkantha</option>
+                    <option value="Imadol">Imadol</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="grid-cols-2">
+                <div class="form-group">
+                  <label class="form-label">Ward No (वडा नं.)</label>
+                  <input class="form-control" type="number" id="mK-ward" placeholder="e.g. 3" min="1" max="32" value="3" />
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Plot Number (कित्ता नं.)</label>
+                  <input class="form-control" type="number" id="mK-kitta" placeholder="e.g. 402" min="1" value="402" />
+                </div>
+              </div>
+
+              <div class="form-group" style="margin-top: 1.5rem;">
+                <button class="btn btn-primary" id="btn-trigger-merokitta-query" style="width: 100%;">Verify Against Land Revenue Office</button>
+              </div>
+
+              <!-- Output Panel -->
+              <div class="form-group">
+                <label class="form-label">Registry Verification Output</label>
+                <div class="ocr-report" id="merokitta-output-console">
+                  [DoLMA Query Engine Offline: Input District, Ward and Kitta to query verified land data...]
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- =================== LIST PROPERTY TAB =================== -->
+        <section class="tab-panel" id="tab-list-property">
+          <div class="grid-cols-2">
+            <!-- Left panel: Media & EXIF parsing -->
+            <div class="card">
+              <h3 class="card-title"><span>📸</span> Media Upload & Smart Location Verification</h3>
+              <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 1.5rem;">
+                Upload high-resolution property pictures or 360 panoramas. The system automatically reads EXIF metadata tags to extract GPS coordinates and cross-reference physical locations before stripping the raw privacy tags completely.
+              </p>
+
+              <div class="form-group">
+                <label class="form-label">Upload Listing Photos</label>
+                <div class="upload-zone" id="spatial-media-zone">
+                  <div class="upload-icon">🌅</div>
+                  <p style="font-size: 0.9rem; font-weight: 600;">Drag & drop property JPEG images</p>
+                  <input type="file" id="spatial-file-input" style="display: none;" accept="image/jpeg" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">EXIF Stripping Audit Console</label>
+                <div class="ocr-report" id="spatial-exif-console">
+                  [Security Core Idle: Upload JPEGs to inspect, extract GPS, and strip raw metadata elements...]
+                </div>
+              </div>
+            </div>
+
+            <!-- Right Panel: Naksha Cross-Reference Map Visualizer -->
+            <div class="card">
+              <h3 class="card-title"><span>🎯</span> Spatial Naksha Boundary Alignment (Point-in-Polygon)</h3>
+              <p style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 1rem;">
+                Visualizes the official Naksha cadastral boundary coordinates (Golden Polygon) against the extracted raw photo GPS pin location.
+              </p>
+              
+              <!-- HTML5 Canvas Map Viewer -->
+              <div class="scanner-box" style="height: 250px; background: #020409; margin-bottom: 1.5rem;">
+                <canvas id="spatial-map-canvas" width="380" height="250"></canvas>
+              </div>
+
+              <!-- Alignment status report -->
+              <div class="form-group">
+                <label class="form-label">Spatial Verification Report</label>
+                <div class="ocr-report" id="spatial-alignment-status-box">
+                  [Spatial Alignment Engine Offline: Upload verified Lalpurja boundary and GPS-enabled photos to run boundary audit check...]
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- =================== PRICING ENGINE TAB =================== -->
+        <section class="tab-panel" id="tab-pricing">
+          <div class="card" style="margin-bottom: 2rem;">
+            <h3 class="card-title"><span data-i18n="pricingTitle">Nepalese Algorithmic Pricing Engine</span></h3>
+            <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 1.5rem;">
+              Performs real-time conversion calculations across Hilly (Ropani-Aana) and Terai (Bigha-Kattha) measurement systems and evaluates statistical market pricing valuations based on road accessibility and regional zoning filters.
+            </p>
+
+            <div class="grid-cols-2">
+              <!-- Hilly System Inputs -->
+              <div class="card" style="background: rgba(0, 0, 0, 0.25);">
+                <h4 class="form-label" style="font-size: 0.95rem; font-weight: 700; color: var(--primary-neon);" data-i18n="hillyUnits">Hilly System (Ropani-Aana-Paisa-Daam)</h4>
+                <div class="grid-cols-4" style="margin-top: 0.75rem;">
+                  <div class="form-group">
+                    <label class="form-label">Ropani (रोपनी)</label>
+                    <input class="form-control" type="number" id="price-ropani" value="0" min="0" />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Aana (आना)</label>
+                    <input class="form-control" type="number" id="price-aana" value="8" min="0" max="15" />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Paisa (पैसा)</label>
+                    <input class="form-control" type="number" id="price-paisa" value="0" min="0" max="3" />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Daam (दाम)</label>
+                    <input class="form-control" type="number" id="price-daam" value="0" min="0" max="3" />
+                  </div>
+                </div>
+              </div>
+
+              <!-- Terai System Inputs -->
+              <div class="card" style="background: rgba(0, 0, 0, 0.25);">
+                <h4 class="form-label" style="font-size: 0.95rem; font-weight: 700; color: var(--primary-gold);" data-i18n="teraiUnits">Terai System (Bigha-Kattha-Dhur)</h4>
+                <div class="grid-cols-3" style="margin-top: 0.75rem;">
+                  <div class="form-group">
+                    <label class="form-label">Bigha (बिघा)</label>
+                    <input class="form-control" type="number" id="price-bigha" value="0" min="0" />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Kattha (कट्ठा)</label>
+                    <input class="form-control" type="number" id="price-kattha" value="0" min="0" max="19" />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Dhur (धुर)</label>
+                    <input class="form-control" type="number" id="price-dhur" value="0" min="0" max="19" />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Standard Metrics Display (Sq Ft / Sq Meters) -->
+            <div class="grid-cols-2" style="margin-top: 1.5rem;">
+              <div class="form-group">
+                <label class="form-label">Area in Square Feet (वर्ग फिट)</label>
+                <input class="form-control" type="number" id="price-sqft" value="2738" style="font-weight: 700;" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Area in Square Meters (वर्ग मिटर)</label>
+                <input class="form-control" type="number" id="price-sqm" value="254.3" disabled />
+              </div>
+            </div>
+
+            <!-- Statistical Factors -->
+            <div class="grid-cols-3" style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border-glass);">
+              <div class="form-group">
+                <label class="form-label" data-i18n="roadWidth">Access Road Width (feet)</label>
+                <select class="form-control" id="price-road-width">
+                  <option value="20">>20 ft (Standard blacktopped road)</option>
+                  <option value="13" selected>13 ft - 16 ft (Gravel sub-road)</option>
+                  <option value="8">8 ft - 12 ft (Inner alley / Goreto)</option>
+                  <option value="4">&lt;8 ft (Dirt path / goreto)</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label" data-i18n="highwayProximity">Highway Proximity (meters)</label>
+                <input class="form-control" type="number" id="price-highway-dist" value="250" />
+              </div>
+              <div class="form-group">
+                <label class="form-label" data-i18n="zoning">Municipal Land Zoning</label>
+                <select class="form-control" id="price-zoning">
+                  <option value="residential" selected>Residential (आवासीय)</option>
+                  <option value="commercial">Commercial (व्यापारिक)</option>
+                  <option value="agricultural">Agricultural (कृषि)</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Estimated Output Ranges -->
+            <div class="pricing-display">
+              <div class="price-gauge">
+                <h4 class="form-label" data-i18n="valuationEstimate">Algorithmic Valuation Estimate</h4>
+                <div class="price-value" id="price-median-value">NPR 19,166,000</div>
+                <div style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.25rem;">
+                  Median estimate for Kathmandu Residential property
+                </div>
+              </div>
+              <div class="grid-cols-2">
+                <div class="price-gauge" style="padding: 1rem; border-color: rgba(255,255,255,0.05); background: transparent;">
+                  <h5 class="form-label" data-i18n="lowEst">Low Range</h5>
+                  <div class="price-value" id="price-low-value" style="font-size: 1.35rem;">NPR 17,249,400</div>
+                </div>
+                <div class="price-gauge" style="padding: 1rem; border-color: rgba(255,255,255,0.05); background: transparent;">
+                  <h5 class="form-label">High Range</h5>
+                  <div class="price-value" id="price-high-value" style="font-size: 1.35rem;">NPR 21,082,600</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- =================== NEGOTIATION TAB =================== -->
+        <section class="tab-panel" id="tab-negotiate">
+          <div class="chat-layout">
+            <!-- Left panel: Messaging Interface -->
+            <div class="chat-room">
+              <div class="chat-header">
+                <div>
+                  <h4 style="font-size: 1rem; font-weight: 700; color: #FFFFFF;" data-i18n="secureChat">End-to-End Encrypted Chat (E2EE)</h4>
+                  <span class="badge badge-emerald" style="padding: 0.15rem 0.5rem; font-size: 0.65rem; margin-top: 0.25rem;" data-i18n="complianceBadge">ECA 2025 COMPLIANT</span>
+                </div>
+                <div class="text-gold" style="font-size: 0.8rem; font-weight: 700;">
+                  🔒 Active E2EE Tunnel
+                </div>
+              </div>
+
+              <!-- Message Scroller -->
+              <div class="chat-scroller" id="negotiate-chat-scroller">
+                <!-- Messages populate dynamically -->
+              </div>
+
+              <!-- Text inputs -->
+              <div class="chat-inputs">
+                <input class="form-control" type="text" id="negotiate-chat-input" placeholder="Type verified secure message here..." />
+                <button class="btn btn-primary" id="btn-negotiate-send">Send</button>
+              </div>
+            </div>
+
+            <!-- Right Panel: E2EE Key viewer and grievance export -->
+            <div class="key-inspector">
+              <h3 class="card-title" style="margin-bottom: 0.25rem;"><span>🔐</span> Trust Panel</h3>
+              <p style="font-size: 0.75rem; color: var(--text-secondary); line-height: 1.4;">
+                Verifiable cryptographic key structures in active session.
+              </p>
+              
+              <div>
+                <span class="form-label" style="font-size: 0.75rem;">Your Public DH Key (Base64)</span>
+                <div class="key-box" id="negotiate-my-key">0x000000000000</div>
+              </div>
+
+              <div>
+                <span class="form-label" style="font-size: 0.75rem;">Transmission Payload (Ciphertext)</span>
+                <div class="key-box" id="negotiate-ciphertext-preview" style="color: var(--primary-gold);">
+                  Waiting for transmission...
+                </div>
+              </div>
+
+              <div style="margin-top: auto; padding-top: 1rem; border-top: 1px solid var(--border-glass);">
+                <label class="form-label" data-i18n="disputePortal">Dispute Resolution Exporter</label>
+                <button class="btn btn-secondary" id="btn-negotiate-export" style="width: 100%; font-size: 0.8rem; padding: 0.65rem;" data-i18n="decryptButton">
+                  Export signed dispute package
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- =================== ESCROW & AML TAB =================== -->
+        <section class="tab-panel" id="tab-escrow">
+          <div class="grid-cols-2">
+            <!-- Left panel: NRB AML declarations -->
+            <div class="card">
+              <h3 class="card-title"><span data-i18n="escrowTitle">NRB Financial AML Verification</span></h3>
+              <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 1.5rem;" data-i18n="escrowNote">
+                Mandatory informational escrow for transactions exceeding NPR 5,000,000 (50 Lakhs) as per Nepal Rastra Bank directives.
+              </p>
+
+              <div class="form-group">
+                <label class="form-label">Good for Payment (GFP) Cheque / Bank Transfer receipt</label>
+                <div class="upload-zone" id="escrow-cheque-zone">
+                  <div class="upload-icon">🏦</div>
+                  <p style="font-size: 0.9rem; font-weight: 600;">Drag & drop cheque scan / transfer screenshot</p>
+                  <input type="file" id="escrow-file-input" style="display: none;" accept="image/*,.pdf" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Originating Bank Name</label>
+                <input class="form-control" type="text" id="escrow-bank-name" placeholder="e.g. Nabil Bank Ltd." />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Transfer / Cheque Reference ID</label>
+                <input class="form-control" type="text" id="escrow-ref-id" placeholder="e.g. RTGS-90812-NPR" />
+              </div>
+            </div>
+
+            <!-- Right panel: Declarations checklist & scan status -->
+            <div class="card">
+              <h3 class="card-title"><span>🛡️</span> AML Declaration & Audit Control</h3>
+              
+              <div class="form-group">
+                <label class="form-label" data-i18n="sourceOfFunds">Source of Funds Declaration</label>
+                <select class="form-control" id="escrow-source-funds">
+                  <option value="business_income">Legitimate Business Income (व्यापारिक आम्दानी)</option>
+                  <option value="inheritance">Ancestral Property Sale / Inheritance (पुर्ख्यौली सम्पत्ति बिक्री)</option>
+                  <option value="bank_loan">Approved Commercial Bank Loan (बैंक ऋण)</option>
+                  <option value="savings">Salary & Personal Savings (बचत कोष)</option>
+                </select>
+              </div>
+
+              <div class="form-group" style="margin: 1.5rem 0;">
+                <label style="display: flex; gap: 0.75rem; cursor: pointer; font-size: 0.85rem; color: var(--text-secondary); line-height: 1.4;">
+                  <input type="checkbox" id="escrow-pep-declaration" style="width: 18px; height: 18px; accent-color: var(--primary-neon);" />
+                  I declare that neither I nor any of the transacting parties are Politically Exposed Persons (PEPs) as per GoN directives, and these funds are strictly legitimate.
+                </label>
+              </div>
+
+              <div class="form-group">
+                <button class="btn btn-primary" id="btn-trigger-escrow-verify" style="width: 100%;">Initiate Financial AML Sweep</button>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">AML Compliance Certification Status</label>
+                <div class="ocr-report" id="escrow-audit-status-console">
+                  [AML Audit Hub Offline: Upload GFP certified cheque and check verification items to run audit sweep...]
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- =================== LEGAL PORTAL TAB =================== -->
+        <section class="tab-panel" id="tab-legal">
+          <div class="grid-cols-2">
+            <!-- Left panel: Rajinama Deed review -->
+            <div class="card">
+              <h3 class="card-title"><span data-i18n="rajinamaTitle">Standard Nepalese Sale Deed (राजिनामा लिखत)</span></h3>
+              <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1rem;">
+                Legally formatted in alignment with government registry structures. Review the verified deed variables before executing binding digital signature.
+              </p>
+
+              <!-- Document Preview glass container -->
+              <div class="ocr-report" style="height: 340px; overflow-y: auto; font-family: 'Mukta', sans-serif; font-size: 0.9rem; line-height: 1.6; border-left-color: var(--primary-gold);">
+                <div style="text-align: center; margin-bottom: 1.5rem;">
+                  <h4 style="font-weight: 800; font-size: 1.25rem;">राजिनामा लिखत कागजात</h4>
+                  <p style="font-size: 0.8rem; color: var(--text-muted);">नेपाल सरकार, भूमि व्यवस्था मन्त्रालय, मालपोत कार्यालय</p>
+                </div>
+                
+                <p style="margin-bottom: 0.75rem;">
+                  <strong>लिखितम:</strong> जग्गाधनी विक्रेता श्री <span id="legal-preview-seller" class="text-gold">हरि बहादुर थापा</span> नागरिकता प्रमाण-पत्र नं. <span id="legal-preview-seller-nag">४५-०२-७६-१२०३४</span> (यसपछि प्रथम पक्ष भनिएको) ले आफ्नो हकभोग स्वामित्वमा रहेको तपसिल बमोजिमको अचल जग्गा खरिदकर्ता श्री <span id="legal-preview-buyer" class="text-gold">[Verify Buyer eKYC]</span> नागरिकता प्रमाण-पत्र नं. <span id="legal-preview-buyer-nag">[Verify Buyer eKYC]</span> (यसपछि द्वितीय पक्ष भनिएको) लाई आपसी सहमतिमा राजीखुसीका साथ बिक्री गरी स्वामित्व हस्तान्तरण गर्न मन्जुर भई यो लिखत राजिनामा पत्र निष्पादन गरिएको छ।
+                </p>
+
+                <h5 style="font-weight: 700; margin-top: 1rem; color: var(--primary-neon);">तपसिल (जग्गा विवरण):</h5>
+                <ul class="guide-ol" style="margin-left: 0.5rem; margin-top: 0.25rem;">
+                  <li>जिल्ला: <span id="legal-preview-district" class="text-gold">काठमाडौं</span>, नगरपालिका: <span id="legal-preview-muni">बुढानीलकण्ठ</span>, वडा नं.: <span id="legal-preview-ward">३</span></li>
+                  <li>जग्गा कित्ता नम्बर: <span id="legal-preview-kitta" class="text-gold">४०२</span>, प्रमाणित क्षेत्रफल: <span id="legal-preview-area">०-१०-०-०</span></li>
+                  <li>कारोबार रकम: रु. <span id="legal-preview-price" class="text-gold">[Calculate Valuation]</span> (अक्षरेपी: <span id="legal-preview-price-text">[Calculate Valuation]</span>)</li>
+                </ul>
+
+                <p style="margin-top: 1rem; font-size: 0.8rem; color: var(--text-muted);">
+                  यस लिखतमा उल्लेखित सर्तहरू विद्युतीय कारोबार ऐन २०६३ (ETA 2063) को परिधि भित्र रही दुवै पक्षको आपसी मन्जुरीमा हस्ताक्षर गरिएको छ।
+                </p>
+              </div>
+
+              <div class="grid-cols-2" style="margin-top: 1.5rem;">
+                <button class="btn btn-secondary" id="btn-legal-refresh-data">Sync Variables</button>
+                <button class="btn btn-primary" id="btn-legal-generate-pdf">Generate Deed PDF</button>
+              </div>
+            </div>
+
+            <!-- Right panel: Signature pad certified under ETA 2063 -->
+            <div class="card">
+              <h3 class="card-title"><span data-i18n="signCanvas">Draw Your Authorized Signature</span></h3>
+              <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 1.5rem;" data-i18n="etaCompliance">
+                Incorporate digital signature APIs that are certified under Nepal's Electronic Transactions Act 2063 to execute binding preliminary agreements online.
+              </p>
+
+              <!-- Signature Pad -->
+              <div class="signature-boundary" id="legal-signature-container">
+                <canvas id="legal-signature-canvas" width="380" height="160"></canvas>
+              </div>
+
+              <div class="signature-controls">
+                <button class="btn btn-secondary" id="btn-legal-clear-sign" style="flex: 1;" data-i18n="clearSign">Clear Signature</button>
+                <button class="btn btn-primary" id="btn-legal-finalize-sign" style="flex: 1.5;">Execute Legal Agreement</button>
+              </div>
+
+              <!-- Digital Certificate Status -->
+              <div class="form-group" style="margin-top: 1.5rem;">
+                <label class="form-label">Cryptographic Agreement Status</label>
+                <div class="ocr-report" id="legal-signature-status-console">
+                  [Signatories Suite Offline: Sign on the canvas panel above to bind agreement digitally...]
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- =================== PRIVACY TAB =================== -->
+        <section class="tab-panel" id="tab-privacy">
+          <div class="card" style="margin-bottom: 2rem;">
+            <h3 class="card-title"><span data-i18n="privacyTitle">Military-Grade PII Privacy Control Panel</span></h3>
+            <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 1.5rem;" data-i18n="privacyText">
+              Your Personally Identifiable Information (PII) is encrypted locally using client-side AES-256 standard. Under the Privacy Act 2075, you retain absolute authority to inspect, update, or completely erase your digital footprint from Jamin Direct.
+            </p>
+
+            <!-- Encrypted PII Row Database Console -->
+            <div class="form-group" style="margin-bottom: 2rem;">
+              <label class="form-label">Local Encrypted Database Logs (PII Records)</label>
+              
+              <!-- Nagarikta row -->
+              <div class="pii-row">
+                <div class="pii-details">
+                  <h4>Nepalese Citizenship Card Parameter</h4>
+                  <p id="pii-cipher-nagarikta">AES-256-GCM::Waiting for eKYC submission...</p>
+                </div>
+                <button class="btn btn-secondary btn-decrypt-pii" data-pii-type="nagarikta" style="font-size: 0.75rem; padding: 0.45rem 0.85rem;" disabled>Inspect PII</button>
+              </div>
+
+              <!-- Biometric photo row -->
+              <div class="pii-row">
+                <div class="pii-details">
+                  <h4>Biometric Selfie Face Match Hash</h4>
+                  <p id="pii-cipher-biometrics">AES-256-GCM::Waiting for eKYC scan...</p>
+                </div>
+                <button class="btn btn-secondary btn-decrypt-pii" data-pii-type="biometrics" style="font-size: 0.75rem; padding: 0.45rem 0.85rem;" disabled>Inspect PII</button>
+              </div>
+
+              <!-- Chat transcripts row -->
+              <div class="pii-row">
+                <div class="pii-details">
+                  <h4>E2EE Negotiation Logs (ECA 2025)</h4>
+                  <p id="pii-cipher-chats">AES-256-GCM::Waiting for negotiation...</p>
+                </div>
+                <button class="btn btn-secondary btn-decrypt-pii" data-pii-type="chats" style="font-size: 0.75rem; padding: 0.45rem 0.85rem;" disabled>Inspect PII</button>
+              </div>
+            </div>
+
+            <!-- Absolute Purge (Right to be Forgotten) -->
+            <div class="card" style="border-color: rgba(239, 68, 68, 0.25); background: rgba(239, 68, 68, 0.02);">
+              <h4 class="form-label" style="font-size: 1.15rem; color: var(--danger-crimson); font-weight: 700; margin-bottom: 0.5rem;">Right to be Forgotten (पूर्ण विवरण नामेतीकरण)</h4>
+              <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 1.25rem;">
+                Under Section 22 of the Privacy Act 2075, clicking the button below will initiate a complete, irreversible, zero-fill database purge. All citizenship records, digital signatures, bank cheques, and spatial data will be permanently destroyed.
+              </p>
+              
+              <div class="grid-cols-2">
+                <button class="btn btn-danger" id="btn-privacy-wipe-db" data-i18n="delete">Delete All Data</button>
+                <div class="ocr-report" id="privacy-wipe-status-console" style="border-left-color: var(--danger-crimson); font-size: 0.75rem;">
+                  PII Data Vault secure. Integrity checks normal.
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+    
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

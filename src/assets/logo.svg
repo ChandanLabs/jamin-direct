@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100%" height="100%">
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00F2FE;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#4FACFE;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <!-- Background Shield Grid -->
+  <rect x="10" y="10" width="80" height="80" rx="15" fill="none" stroke="url(#grad1)" stroke-width="2" opacity="0.3"/>
+  <circle cx="50" cy="50" r="30" fill="none" stroke="url(#grad1)" stroke-width="1.5" stroke-dasharray="4,4" opacity="0.4"/>
+  <!-- Topographical/Land Mapping contours -->
+  <path d="M 20 65 Q 40 45 50 65 T 80 65" fill="none" stroke="url(#grad1)" stroke-width="1.5" opacity="0.5"/>
+  <path d="M 25 75 Q 45 60 55 75 T 75 75" fill="none" stroke="url(#grad1)" stroke-width="1" opacity="0.3"/>
+  <!-- Modern Geometric P2P House -->
+  <polygon points="50,22 80,48 68,48 68,75 32,75 32,48 20,48" fill="none" stroke="url(#grad1)" stroke-width="4.5" stroke-linejoin="round"/>
+  <!-- Centered P2P Pin -->
+  <circle cx="50" cy="52" r="5" fill="#F5A623"/>
+</svg>
